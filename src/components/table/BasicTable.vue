@@ -2,20 +2,17 @@
   <div>
     <h2>Basic Table</h2>
     <el-table :data="tableData" border stripe>
-      <el-table-column
-        prop="date"
-        label="Date"
-        width="180"
-      ></el-table-column>
-      <el-table-column
-        prop="name"
-        label="Name"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="Address"
-        width="300">
+      <el-table-column prop="date" label="Date" width="180"></el-table-column>
+      <el-table-column prop="name" label="Name" width="180"></el-table-column>
+      <el-table-column prop="address" label="Address" width="300"></el-table-column>
+    </el-table>
+    <br/>
+    <el-table :data="tableData" border stripe>
+      <el-table-column v-for="col in columns"
+        :prop="col.prop"
+        :key="col.prop"
+        :label="col.prop|capitalize"
+        :width="col.width">
       </el-table-column>
     </el-table>
   </div>
@@ -48,6 +45,24 @@ export default {
           address: 'No. 189, Grove St, Los Angeles'
         }
       ]
+    }
+  },
+  computed: {
+    columns () {
+      return Object.keys(this.tableData[0]).map(prop => {
+        if (prop !== 'address') {
+          return {prop, width: 180}
+        } else {
+          return {prop, width: 250}
+        }
+      })
+    }
+  },
+  filters: {
+    capitalize (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 }

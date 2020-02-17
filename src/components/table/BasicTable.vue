@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2>Basic Table</h2>
-    <el-table :data="tableData" border stripe>
+    <el-table
+      :data="tableData" border
+      :row-class-name="tableRowClassName">
       <el-table-column prop="date" label="Date" width="180"></el-table-column>
       <el-table-column prop="name" label="Name" width="180"></el-table-column>
       <el-table-column prop="address" label="Address" width="300"></el-table-column>
@@ -47,6 +49,15 @@ export default {
       ]
     }
   },
+  methods: {
+    tableRowClassName ({row, rowIndex}) {
+      if (rowIndex & 1) {
+        return 'odd-row'
+      } else {
+        return 'even-row'
+      }
+    }
+  },
   computed: {
     columns () {
       return Object.keys(this.tableData[0]).map(prop => {
@@ -69,5 +80,14 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style >
+  .el-table {
+    width: 100%
+  }
+  .el-table .odd-row {
+    background: #67C23A!important;
+  }
+  .even-row {
+    background: #F56C6C!important
+  }
 </style>

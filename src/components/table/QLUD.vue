@@ -89,7 +89,7 @@
         <span>Delete App ?</span>
         <span slot="footer" style="display: block; text-align: center">
           <el-button @click="deleteDialogVisible = false">Cancel</el-button>
-          <el-button type="danger" @click="deleteDialogVisible = false;deleteApp()">Confirm</el-button>
+          <el-button type="danger" @click="deleteApp()">Confirm</el-button>
         </span>
       </el-dialog>
     </div>
@@ -136,6 +136,7 @@ export default {
       this.deletedAppCode = row.appCode
     },
     deleteApp () {
+      this.deleteDialogVisible = false
       axios.delete('/apps', {data: this.deletedAppCode})
         .then(res => {
           console.log('delete app')

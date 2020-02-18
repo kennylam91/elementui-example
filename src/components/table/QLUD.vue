@@ -45,7 +45,7 @@
         <el-table-column
         label="AppCode"
         align="center"
-        width="100"
+        width="200"
         >
         <template slot-scope="{row}">
           <span class="link-type">{{ row.appCode }}</span>
@@ -70,7 +70,10 @@
           width=""
           align="center"
         >
-        <el-button type="danger" size="small" >Delete</el-button>
+        <template slot-scope="scope">
+          <el-button type="danger" size="small"
+            @click.native.prevent="deleteApp(scope.row)" >Delete</el-button>
+        </template>
 
         </el-table-column>
       </el-table>
@@ -90,7 +93,7 @@ export default {
   data () {
     return {
       dataTable: [],
-      total: null,
+      total: 0,
       formSearch: {
         appCode: '',
         appName: '',
@@ -114,6 +117,16 @@ export default {
       console.log(pagination)
       this.formSearch.pagination = pagination
       this.onSearchSubmit()
+    },
+    deleteApp (row) {
+      console.log(row)
+      axios.delete('/apps', {data: row.appCode})
+        .then(res => {
+          console.log('delete app')
+          console.log(res.data)
+          this.dataTable = res.data.list
+          this.total = res.data.total
+        })
     }
   },
   computed: {
@@ -121,6 +134,7 @@ export default {
   mounted () {
     axios.get('/apps')
       .then(res => {
+        console.log('fetch apps')
         console.log(res.data)
         this.dataTable = res.data.list
         this.total = res.data.total

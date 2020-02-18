@@ -1,28 +1,30 @@
 <template>
   <div>
       <h3>Quan ly ung dung</h3>
-      <el-form :model="formSearch" :inline="true"
-        ref="formSearch" label-width="80px" style="width: 100%; display: flex"
-      >
-        <el-form-item label="">
-          <el-input v-model="formSearch.appCode" placeholder="app code input"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="formSearch.appName" placeholder="app name input"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSearchSubmit">
-            <i class="el-icon-search"></i> Search</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary">
-            <i class="el-icon-edit"></i> Add App</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="secondary" >
-            <i class="el-icon-refresh"></i>  Reload page</el-button>
-        </el-form-item>
-      </el-form>
+      <div id="searchForm">
+        <el-form :model="formSearch" :inline="true"
+          ref="formSearch" label-width="80px" style="width: 100%; display: flex"
+        >
+          <el-form-item label="">
+            <el-input v-model="formSearch.appCode" placeholder="app code input"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="formSearch.appName" placeholder="app name input"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSearchSubmit">
+              <i class="el-icon-search"></i> Search</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary">
+              <i class="el-icon-edit"></i> Add App</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="secondary" >
+              <i class="el-icon-refresh"></i>  Reload page</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
 
       <el-table :data="dataTable"
         border stripe
@@ -64,22 +66,18 @@
 
         </el-table-column>
       </el-table>
-      <el-pagination
-        @size-change="sizeChange"
-        @current-change="currentChange"
-        :current-page="currentPage"
-        :page-sizes="[20, 40, 80, 100]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalNum" background>
-      </el-pagination>
+      <Pagination
+        @pagination= "handlePagination"
+      ></Pagination>
     </div>
 </template>
 <script>
 import '@/mock/QLUDMock'
 import axios from 'axios'
+import Pagination from '@/components/pagination/Pagination'
 export default {
   name: 'QLUD',
+  components: {Pagination},
   data () {
     return {
       dataTable: [],
@@ -96,6 +94,9 @@ export default {
         .then(res => {
           this.dataTable = res.data
         })
+    },
+    handlePagination (pagination) {
+      console.log(pagination)
     }
   },
   mounted () {

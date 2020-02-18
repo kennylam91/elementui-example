@@ -6,25 +6,27 @@
       :default-sort= "{prop: 'date', order: 'descending'}"
       :row-class-name="tableRowClassName">
       <el-table-column
-      prop="date"
-      label="Date"
-      sortable
-      :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
-      :filter-method="filterHandler"
-      column-key="date"
-      width="180"
+        prop="date"
+        label="Date"
+        sortable
+        :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+        :filter-method="filterHandler"
+        column-key="date"
+        width="180"
       >
       </el-table-column>
       <el-table-column
-      prop="name"
-      label="Name"
-      sortable
-      width="180">
+        prop="name"
+        label="Name"
+        sortable
+        width="180"
+      >
       </el-table-column>
       <el-table-column
-      prop="address"
-      label="Address"
-      width="300">
+        prop="address"
+        label="Address"
+        width="300"
+      >
       </el-table-column>
     </el-table>
     <br/>

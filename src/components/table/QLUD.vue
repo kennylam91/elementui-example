@@ -43,11 +43,13 @@
         >
         </el-table-column>
         <el-table-column
-        property="appCode"
         label="AppCode"
         align="center"
         width="100"
         >
+        <template slot-scope="{row}">
+          <span class="link-type">{{ row.appCode }}</span>
+        </template>
         </el-table-column>
         <el-table-column
           property="appName"
@@ -114,6 +116,8 @@ export default {
       this.onSearchSubmit()
     }
   },
+  computed: {
+  },
   mounted () {
     axios.get('/apps')
       .then(res => {
@@ -125,5 +129,9 @@ export default {
 }
 </script>
 <style scoped>
-
+  .link-type{
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 </style>

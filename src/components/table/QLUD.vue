@@ -31,12 +31,14 @@
         label="STT"
         type="index"
         align="center"
+        width="50"
         >
         </el-table-column>
         <el-table-column
         property="appCode"
         label="AppCode"
         align="center"
+        width="100"
         >
         </el-table-column>
         <el-table-column
@@ -89,21 +91,18 @@ export default {
   },
   methods: {
     onSearchSubmit () {
-      console.log('Search form submit')
-      let code = this.formSearch.appCode
-      console.log(code)
-      this.dataTable = this.dataTable.filter(item => {
-        console.log(item.appCode)
-        return item.appCode + '' === code
-      })
-      console.log(this.dataTable)
+      // let code = this.formSearch.appCode
+      axios.post('/apps/search', this.formSearch)
+        .then(res => {
+          this.dataTable = res.data
+        })
     }
   },
   mounted () {
-    axios.get('data.json')
+    axios.get('/apps')
       .then(res => {
-        console.log(res.data.list)
-        this.dataTable = res.data.list
+        console.log(res.data)
+        this.dataTable = res.data
       })
   }
 }

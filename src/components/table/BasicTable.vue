@@ -9,7 +9,11 @@
       prop="date"
       label="Date"
       sortable
-      width="180">
+      :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+      :filter-method="filterHandler"
+      column-key="date"
+      width="180"
+      >
       </el-table-column>
       <el-table-column
       prop="name"
@@ -73,6 +77,12 @@ export default {
       } else {
         return 'even-row'
       }
+    },
+    filterHandler (value, row, column) {
+      // value: selected value
+      console.log(value, row, column)
+      const property = column['property'] // ==date
+      return row[property] === value
     }
   },
   computed: {

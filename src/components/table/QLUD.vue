@@ -11,7 +11,7 @@
           <el-input v-model="formSearch.appName" placeholder="app name input"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">
+          <el-button type="primary" @click="onSearchSubmit">
             <i class="el-icon-search"></i> Search</el-button>
         </el-form-item>
         <el-form-item>
@@ -80,11 +80,23 @@ export default {
   name: 'QLUD',
   data () {
     return {
-      dataTable: null,
+      dataTable: [],
       formSearch: {
         appCode: '',
         appName: ''
       }
+    }
+  },
+  methods: {
+    onSearchSubmit () {
+      console.log('Search form submit')
+      let code = this.formSearch.appCode
+      console.log(code)
+      this.dataTable = this.dataTable.filter(item => {
+        console.log(item.appCode)
+        return item.appCode + '' === code
+      })
+      console.log(this.dataTable)
     }
   },
   mounted () {

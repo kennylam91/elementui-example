@@ -1,4 +1,3 @@
-import { Random } from 'mockjs'
 
 var Mock = require('mockjs')
 export default Mock.mock(/\.json/, {

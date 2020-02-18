@@ -72,7 +72,7 @@
         >
         <template slot-scope="scope">
           <el-button type="danger" size="small"
-            @click.native.prevent="deleteApp(scope.row)" >Delete</el-button>
+            @click.native.prevent="handleDeleteAction(scope.row)" >Delete</el-button>
         </template>
 
         </el-table-column>
@@ -81,6 +81,17 @@
         @pagination= "handlePagination"
         :total = "total"
       ></Pagination>
+      <el-dialog
+        title="Delete App Confirm"
+        :visible.sync="deleteDialogVisible"
+        width="30%"
+        >
+        <span>Delete App ?</span>
+        <span slot="footer" style="display: block; text-align: center">
+          <el-button @click="deleteDialogVisible = false">Cancel</el-button>
+          <el-button type="danger" @click="deleteDialogVisible = false;deleteApp()">Confirm</el-button>
+        </span>
+      </el-dialog>
     </div>
 </template>
 <script>
@@ -94,6 +105,8 @@ export default {
     return {
       dataTable: [],
       total: 0,
+      deleteDialogVisible: false,
+      deletedAppCode: null,
       formSearch: {
         appCode: '',
         appName: '',
@@ -118,9 +131,12 @@ export default {
       this.formSearch.pagination = pagination
       this.onSearchSubmit()
     },
-    deleteApp (row) {
-      console.log(row)
-      axios.delete('/apps', {data: row.appCode})
+    handleDeleteAction (row) {
+      this.deleteDialogVisible = true
+      this.deletedAppCode = row.appCode
+    },
+    deleteApp () {
+      axios.delete('/apps', {data: this.deletedAppCode})
         .then(res => {
           console.log('delete app')
           console.log(res.data)

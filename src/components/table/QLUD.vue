@@ -6,10 +6,16 @@
           ref="formSearch" label-width="80px" style="width: 100%; display: flex"
         >
           <el-form-item label="">
-            <el-input v-model="formSearch.appCode" placeholder="app code input"></el-input>
+            <el-input maxlength="50"
+              v-model="formSearch.appCode"
+              placeholder="app code input">
+            </el-input>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="formSearch.appName" placeholder="app name input"></el-input>
+            <el-input maxlength="100"
+              v-model="formSearch.appName"
+              placeholder="app name input">
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSearchSubmit">
@@ -68,6 +74,7 @@
       </el-table>
       <Pagination
         @pagination= "handlePagination"
+        :total = "total"
       ></Pagination>
     </div>
 </template>
@@ -81,9 +88,14 @@ export default {
   data () {
     return {
       dataTable: [],
+      total: null,
       formSearch: {
         appCode: '',
-        appName: ''
+        appName: '',
+        pagination: {
+          page: 1,
+          limit: 10
+        }
       }
     }
   },
@@ -92,18 +104,22 @@ export default {
       // let code = this.formSearch.appCode
       axios.post('/apps/search', this.formSearch)
         .then(res => {
-          this.dataTable = res.data
+          this.dataTable = res.data.list
+          this.total = res.data.total
         })
     },
     handlePagination (pagination) {
       console.log(pagination)
+      this.formSearch.pagination = pagination
+      this.onSearchSubmit()
     }
   },
   mounted () {
     axios.get('/apps')
       .then(res => {
         console.log(res.data)
-        this.dataTable = res.data
+        this.dataTable = res.data.list
+        this.total = res.data.total
       })
   }
 }

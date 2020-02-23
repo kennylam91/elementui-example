@@ -98,6 +98,9 @@ thead .el-checkbox__input {
 thead .is-indeterminate {
     display:block!important
 }
+thead .is-checked {
+  display:block!important
+}
 .el-table__row:hover .el-checkbox {
   display: block!important
 }

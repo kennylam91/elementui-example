@@ -4,6 +4,7 @@
     ref="multipleTable"
     :data="tableData"
     style="width: 100%"
+    :cell-style="cellStyle"
     @selection-change="handleSelectionChange">
     <el-table-column
       type="selection"
@@ -81,7 +82,16 @@ export default {
     },
     handleSelectionChange (val) {
       this.multipleSelection = val
+    },
+    cellStyle (row) {
+      console.log(row)
+      if (row.columnIndex === 0) {
+        return 'display: none'
+      }
     }
   }
 }
 </script>
+<style scoped>
+
+</style>

@@ -86,7 +86,7 @@ export default {
     cellStyle (row) {
       console.log(row)
       if (row.columnIndex === 0) {
-        return 'display: none'
+        return 'opacity: 0'
       }
     }
   }

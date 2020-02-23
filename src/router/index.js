@@ -8,7 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/helloWorld',
       name: 'HelloWorld',
       component: HelloWorld
     },
@@ -18,7 +18,7 @@ export default new Router({
       component: BasicTable
     },
     {
-      path: '/table/selection',
+      path: '/',
       name: 'SelectionTable',
       component: SelectionTable
     }

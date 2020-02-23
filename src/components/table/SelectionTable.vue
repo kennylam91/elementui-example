@@ -85,3 +85,20 @@ export default {
   }
 }
 </script>
+<style>
+.el-table__row .el-checkbox {
+    display: none!important
+}
+.el-table__row .is-checked {
+  display:block!important
+}
+thead .el-checkbox__input {
+    display: none!important
+}
+thead .is-indeterminate {
+    display:block!important
+}
+.el-table__row:hover .el-checkbox {
+  display: block!important
+}
+</style>

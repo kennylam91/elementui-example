@@ -5,6 +5,8 @@
     :data="tableData"
     style="width: 100%"
     :cell-style="cellStyle"
+    @cell-mouse-enter="handleCellMouseEnter"
+    @cell-mouse-leave="handleCellMouseLeave"
     @selection-change="handleSelectionChange">
     <el-table-column
       type="selection"
@@ -37,35 +39,38 @@
 export default {
   data () {
     return {
-      tableData: [{
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-08',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-06',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }, {
-        date: '2016-05-07',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }],
+      hoveredRow: null,
+      tableData: [
+        {
+          date: '2016-05-03',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-02',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-04',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-01',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-08',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-06',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }, {
+          date: '2016-05-07',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles'
+        }
+      ],
       multipleSelection: []
     }
   },
@@ -83,11 +88,20 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
-    cellStyle (row) {
-      console.log(row)
-      if (row.columnIndex === 0) {
+    cellStyle (cell) {
+      if (cell.columnIndex === 0 && cell.row !== this.hoveredRow) {
         return 'visibility: hidden'
+      } else {
+        return 'visibility: visible'
       }
+    },
+    handleCellMouseEnter (row, column, cell, event) {
+      this.hoveredRow = row
+      console.log('mouse enter')
+    },
+    handleCellMouseLeave (row, column, cell, event) {
+      this.hoveredRow = null
+      console.log('mouse out')
     }
   }
 }

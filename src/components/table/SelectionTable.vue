@@ -89,10 +89,11 @@ export default {
       this.multipleSelection = val
     },
     cellStyle (cell) {
-      if (cell.columnIndex === 0 && cell.row !== this.hoveredRow && !this.multipleSelection.includes(cell.row)) {
-        return 'visibility: hidden'
+      if (cell.columnIndex === 0 && cell.row !== this.hoveredRow &&
+        !this.multipleSelection.includes(cell.row)) {
+        return 'opacity: 0'
       } else {
-        return 'visibility: visible'
+        return 'opacity: 1'
       }
     },
     handleCellMouseEnter (row, column, cell, event) {
